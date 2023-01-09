@@ -19,7 +19,8 @@ class NewContactViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        saveButton.isEnabled = false
+        firstNameTextField.addTarget(self, action: #selector(showSaveButton), for: .editingChanged)
     }
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
@@ -32,6 +33,12 @@ class NewContactViewController: UIViewController {
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         
         dismiss(animated: true)
+    }
+    
+    @objc func showSaveButton() {
+        guard let firstText = firstNameTextField.text else { return }
+        saveButton.isEnabled = !firstText.isEmpty
+        
     }
     
     private func saveNewContact() {
